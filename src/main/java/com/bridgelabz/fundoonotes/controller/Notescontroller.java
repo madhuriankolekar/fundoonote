@@ -14,33 +14,27 @@ import com.bridgelabz.fundoonotes.service.Notesservice;
 @RestController
 public class Notescontroller {
 	@Autowired
-private  Notesservice notesservice;
-	@PostMapping("/iscreate")
-	public ResponseEntity<Response> iscreate(@Valid @RequestBody Notesdto notesDTO){
-		
-		if(notesservice.isCreated( notesDTO))
-		{
-			return new ResponseEntity<Response>(new Response(HttpStatus.OK.value(),"notes successfully create"),HttpStatus.OK);
-		}
-		 return new ResponseEntity<Response>(new Response(HttpStatus.BAD_REQUEST.value(),"notes not created"),HttpStatus.BAD_REQUEST);
-	}
-	@PostMapping("/isupdated")
-	 //updateNote(Integer noteId,Note note);
-	public ResponseEntity<Response>     isUpdated(@Valid @RequestBody Integer id,Note notedto) {
-		if(notesservice.isUpdated(id, notedto))//.isUpdated(noteId, note))///.isCreated( notesDTO))
-				{
-				return new ResponseEntity<Response>(new Response(HttpStatus.OK.value(),"notes successfully updated"),HttpStatus.OK);
-			}
-			 return new ResponseEntity<Response>(new Response(HttpStatus.BAD_REQUEST.value(),"notes not updated"),HttpStatus.BAD_REQUEST);
-		}
+	private Notesservice notesservice;
 
-	@PostMapping("/isdeleted")
-	 //updateNote(Integer noteId,Note note);
-	public ResponseEntity<Response>     isDeleted(@Valid @RequestBody Integer noteId) {
-		if(notesservice.isDeleted(noteId))
-				{
-				return new ResponseEntity<Response>(new Response(HttpStatus.OK.value(),"notes successfully deleted"),HttpStatus.OK);
-			}
-			 return new ResponseEntity<Response>(new Response(HttpStatus.BAD_REQUEST.value(),"notes not deleted"),HttpStatus.BAD_REQUEST);
+	@PostMapping("notes/iscreate")
+	public ResponseEntity<Response> iscreate(@Valid @RequestBody Notesdto notesDTO) {
+
+		if (notesservice.isCreated(notesDTO)) {
+			return new ResponseEntity<Response>(new Response(HttpStatus.OK.value(), "notes successfully create"),
+					HttpStatus.OK);
 		}
+		return new ResponseEntity<Response>(new Response(HttpStatus.BAD_REQUEST.value(), "notes not created"),
+				HttpStatus.BAD_REQUEST);
+	}
+
+
+@PostMapping("notes/update")
+public ResponseEntity<Response> updateNote(@Valid @RequestBody Integer noteId,Note note) {
+	if(notesservice.isUpdated(noteId, note))
+	return new ResponseEntity<Response>(new Response(HttpStatus.OK.value(), "notes successfully create"),
+			HttpStatus.OK);;
+			return new ResponseEntity<Response>(new Response(HttpStatus.BAD_REQUEST.value(), "notes not created"),
+			HttpStatus.BAD_REQUEST);
+} 
+
 }

@@ -1,5 +1,4 @@
 package com.bridgelabz.fundoonotes.model;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +19,22 @@ public class Label {
 		private String lname;
 		@Column
 		private String sname;
+		@Column
+		private String email;
+		@Column
+		private String password;
+		public String getEmail() {
+			return email;
+		}
+		public void setEmail(String email) {
+			this.email = email;
+		}
+		public String getPassword() {
+			return password;
+		}
+		public void setPassword(String password) {
+			this.password = password;
+		}
 		@Column
 		private long mobileno;
 		public Integer getId() {

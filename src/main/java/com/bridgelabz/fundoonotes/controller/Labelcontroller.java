@@ -14,7 +14,7 @@ import com.bridgelabz.fundoonotes.service.Labelservice;
 public class Labelcontroller {
 	@Autowired
 private  Labelservice labelservice;
-	@PostMapping("/create")
+	@PostMapping("label/create")
 	public ResponseEntity<Response> isCreated(@Valid @RequestBody Labeldto labelDTO){
 		
 		if(labelservice.isCreated(labelDTO)) {
@@ -22,7 +22,7 @@ private  Labelservice labelservice;
 		}
 		 return new ResponseEntity<Response>(new Response(HttpStatus.BAD_REQUEST.value(),"Label not created"),HttpStatus.BAD_REQUEST);
 	}
-	@PostMapping("/isdeleted")
+	@PostMapping("label/deleted")
 	public ResponseEntity<Response>  isDeleted(Integer labelId) {
 		if(labelservice.isDeleted(labelId)){
 			return new ResponseEntity<Response>(new Response(HttpStatus.OK.value(),"Label successfully create"),HttpStatus.OK);
@@ -31,7 +31,7 @@ private  Labelservice labelservice;
 	}
 	
 	
-	@PostMapping("/isupdated")
+	@PostMapping("label/isupdated")
 	public ResponseEntity<Response>  isUpadated(Integer labelId,Labeldto labelDTO) {
 		if(labelservice.isUpadated(labelId, labelDTO)){
 			return new ResponseEntity<Response>(new Response(HttpStatus.OK.value(),"Label successfully create"),HttpStatus.OK);

@@ -1,11 +1,10 @@
 package com.bridgelabz.fundoonotes.repo;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
-
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import com.bridgelabz.fundoonotes.model.Label;
 import com.bridgelabz.fundoonotes.model.Note;
 
 @Repository
@@ -15,19 +14,41 @@ public class Notesrepoimpl implements Notesrepo {
 	@Transactional
 	@Override
 	public Note createNote(Note note) {
-		Session currentSession = entityManager.unwrap(Session.class);
-		Integer id;
-		//System.out.println();
-		id = (Integer)currentSession.save(note);
-		System.out.println(id);
-		if (id != 0) {
+		Session currentSession=entityManager.unwrap(Session.class);
+		int status=0;
+		status=(int) currentSession.save( note);
+		if(status!=0) {
 			return note;
 		}
 		return null;
-
-	}
-
+		}
 	@Transactional
+	public Note save(Note note)
+	{int status = 0;
+	Session session = entityManager.unwrap(Session.class);
+	status = (int) session.save( note);
+	if (status != 0)
+	{
+	
+	return note;
+	}
+	return null;
+	}
+	@Transactional
+	@Override
+	public Note updateNote(Integer noteId, Note note) {
+		Session currentSession=entityManager.unwrap(Session.class);
+		Label notesObj=currentSession.get(Label.class, noteId);
+		if(notesObj!=null) {
+			currentSession.update(note);
+		return note;
+	}
+		return null;
+	}
+}
+
+
+	/*@Transactional
 	@Override
 	public Note updateNote(Integer noteId,Note note) {
 		Session currentSession = entityManager.unwrap(Session.class);
@@ -50,7 +71,7 @@ public class Notesrepoimpl implements Notesrepo {
 		  currentSession.delete(note);
 		  return note;
 		}
-		return note;
+		return null;
 
 	}
 
@@ -61,22 +82,12 @@ public class Notesrepoimpl implements Notesrepo {
 		return note;
 	}
 
-	@Transactional
+	/*@Transactional
 	@Override
 	public List<Note> getAllNotes() {
 		
 		return null;
-	}
-
-	/*@Override
-	public List<Note> getAllNotes() {
-		Session currentSession = entityManager.unwrap(Session.class);
-
-		Query query = currentSession.createQuery("select *from Note ",Note.class);//.createQuery(toString()); // .createQuery("from User", Note.class);
-		List<Note> noteList = query.getR//.getR//.getResultList();
-		return noteList;
-
 	}*/
 
-}
+
 
